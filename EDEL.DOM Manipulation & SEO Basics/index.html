@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite Basketball Varsity - Championship Mindset</title>
+    <meta name="description" content="Experience the journey of an elite varsity basketball player. Interactive training drills, championship mindset, and the pursuit of basketball excellence.">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Orbitron:wght@400;700;900&display=swap');
+        
+        :root {
+            --primary-orange: #ff6b35;
+            --secondary-orange: #ff8500;
+            --dark-bg: #0a0a0a;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --shadow-primary: 0 25px 50px rgba(255, 107, 53, 0.3);
+            --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.1);
+            --gradient-main: linear-gradient(135deg, #ff6b35 0%, #f7931e 50%, #ff8500 100%);
+            --gradient-dark: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* Animated Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255, 107, 53, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 133, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(247, 147, 30, 0.1) 0%, transparent 50%);
+            z-index: -2;
+            animation: backgroundShift 20s ease-in-out infinite alternate;
+        }
+        
+        @keyframes backgroundShift {
+            0% { transform: translateX(0) translateY(0) scale(1); }
+            100% { transform: translateX(-10px) translateY(-10px) scale(1.02); }
+        }
+        
+        /* Floating Basketball Animation */
+        .floating-basketball {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-main);
+            border-radius: 50%;
+            opacity: 0.1;
+            z-index: -1;
+            animation: float 15s infinite ease-in-out;
+        }
+        
+        .floating-basketball:nth-child(1) { top: 10%; left: 10%; animation-delay: 0s; }
+        .floating-basketball:nth-child(2) { top: 20%; right: 10%; animation-delay: 3s; }
+        .floating-basketball:nth-child(3) { bottom: 30%; left: 20%; animation-delay: 6s; }
+        .floating-basketball:nth-child(4) { bottom: 20%; right: 20%; animation-delay: 9s; }
+        
+        @keyframes float {
+            0%, 100% { 
+                transform: translateY(0px) rotate(0deg) scale(1); 
+                filter: blur(0px);
+            }
+            50% { 
+                transform: translateY(-20px) rotate(180deg) scale(1.1);
+                filter: blur(2px);
+            }
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* HERO HEADER */
+        header {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            background: var(--gradient-dark);
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 40px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: var(--shadow-glass);
+            animation: heroEnter 1.5s ease-out;
+        }
+        
+        @keyframes heroEnter {
+            0% { 
+                opacity: 0; 
+                transform: translateY(50px) scale(0.95); 
+                filter: blur(10px);
+            }
+            50% { 
+                opacity: 0.5; 
+                transform: translateY(25px) scale(0.97);
+                filter: blur(5px);
+            }
+            100% { 
+                opacity: 1; 
+                transform: translateY(0) scale(1);
+                filter: blur(0);
+            }
+        }
+        
+        .hero-title {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(2.5rem, 8vw, 6rem);
+            font-weight: 900;
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            animation: titleGlow 3s ease-in-out infinite alternate;
+            line-height: 1.1;
+        }
+        
+        @keyframes titleGlow {
+            0% { filter: drop-shadow(0 0 20px rgba(255, 107, 53, 0.3)); }
+            100% { filter: drop-shadow(0 0 40px rgba(255, 107, 53, 0.6)); }
+        }
+        
+        .hero-subtitle {
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+        }
+        
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.6);
+            animation: bounce 2s infinite;
+            cursor: pointer;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { 
+                transform: translateX(-50%) translateY(0);
+                opacity: 1;
+            }
+            40% { 
+                transform: translateX(-50%) translateY(-15px);
+                opacity: 0.8;
+            }
+            60% { 
+                transform: translateX(-50%) translateY(-7px);
+                opacity: 0.9;
+            }
+        }
+        
+        /* MAIN CONTENT */
+        main {
+            padding: 100px 0;
+            position: relative;
+        }
+        
+        .section {
+            margin-bottom: 100px;
+            animation: fadeInUp 1s ease-out;
+            animation-fill-mode: both;
+        }
+        
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(60px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 50px;
+            box-shadow: var(--shadow-glass);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
+            overflow: hidden;
+            color: #333;
+            transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+        
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.6s;
+        }
+        
+        .glass-card:hover::before {
+            left: 100%;
+        }
+        
+        .glass-card:hover {
+            transform: translateY(-20px) scale(1.02);
+            box-shadow: var(--shadow-primary);
+            border-color: rgba(255, 107, 53, 0.3);
+        }
+        
+        .section-title {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+            color: var(--primary-orange);
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--gradient-main);
+            border-radius: 2px;
+        }
+        
+        #main-text {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            color: #444;
+            margin-bottom: 40px;
+            font-weight: 400;
+            transition: all 0.6s ease;
+        }
+        
+        /* INTERACTIVE BUTTONS */
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+            opacity: 0;
+            transform: scale(0.95);
+        }
+        
+        .action-btn {
+            background: var(--gradient-main);
+            border: none;
+            padding: 20px 30px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.3s ease;
+        }
+        
+        .action-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.6s;
+        }
+        
+        .action-btn:hover::before {
+            left: 100%;
+        }
+        
+        .action-btn:hover {
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 
+                0 15px 30px rgba(255, 107, 53, 0.4),
+                0 0 60px rgba(255, 107, 53, 0.2);
+        }
+        
+        .action-btn:active {
+            transform: translateY(-2px) scale(1.02);
+        }
+        
+        .action-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.2);
+        }
+        
+        /* DRILLS SECTION */
+        .drills-container {
+            margin-top: 50px;
+        }
+        
+        #drills-list {
+            list-style: none;
+            display: grid;
+            gap: 20px;
+        }
+        
+        .drill-item {
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.1) 0%, rgba(255, 133, 0, 0.05) 100%);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border-left: 5px solid var(--primary-orange);
+        }
+        
+        .drill-description {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            opacity: 0;
+        }
+        
+        .drill-item.expanded .drill-description {
+            max-height: 100px;
+            margin: 10px 0;
+            opacity: 1;
+        }
+        
+        .complete-drill {
+            background: var(--gradient-main);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .complete-drill:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.3);
+        }
+        
+        .drill-item.completed {
+            border-left-color: #4CAF50;
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.1) 0%, rgba(76, 175, 80, 0.05) 100%);
+        }
+        
+        .drill-item.completed h3 {
+            text-decoration: line-through;
+            color: #4CAF50;
+        }
+        
+        /* IMAGE SECTION */
+        .image-showcase {
+            text-align: center;
+            margin-top: 50px;
+        }
+        
+        .basketball-image {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            border-radius: 30px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            filter: brightness(0.9) contrast(1.1);
+        }
+        
+        .basketball-image:hover {
+            transform: scale(1.05) translateY(-10px);
+            box-shadow: 0 40px 80px rgba(255, 107, 53, 0.3);
+            filter: brightness(1) contrast(1.2);
+        }
+        
+        /* STATS SECTION */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin: 60px 0;
+        }
+        
+        .stat-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            padding: 30px 20px;
+            border-radius: 20px;
+            text-align: center;
+            border: 1px solid rgba(255, 107, 53, 0.2);
+            transition: all 0.4s ease;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .stat-card.scroll-animate {
+            animation: statReveal 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+        }
+        
+        @keyframes statReveal {
+            0% {
+                opacity: 0;
+                transform: translateY(30px) scale(0.8);
+                filter: blur(10px);
+            }
+            50% {
+                opacity: 0.5;
+                transform: translateY(15px) scale(0.9);
+                filter: blur(5px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                filter: blur(0);
+            }
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--primary-orange);
+            margin-bottom: 10px;
+            font-family: 'Orbitron', monospace;
+        }
+        
+        .stat-label {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* FOOTER */
+        footer {
+            background: var(--gradient-dark);
+            text-align: center;
+            padding: 60px 0;
+            margin-top: 100px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--gradient-main);
+        }
+        
+        .footer-content {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 20px;
+        }
+        
+        .footer-emoji {
+            font-size: 2rem;
+            animation: spin 3s linear infinite;
+            display: inline-block;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 768px) {
+            .container { padding: 0 15px; }
+            .glass-card { padding: 30px 25px; }
+            .button-grid { grid-template-columns: 1fr; }
+            .hero-content { padding: 30px 20px; margin: 20px; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        
+        @media (max-width: 480px) {
+            .glass-card { padding: 25px 20px; }
+            .section-title { margin-bottom: 20px; }
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+        
+        /* LOADING ANIMATION */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+        
+        .loading-basketball {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-main);
+            border-radius: 50%;
+            animation: loadingBounce 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes loadingBounce {
+            0%, 100% { 
+                transform: scale(1) translateY(0);
+                filter: blur(0);
+            }
+            50% { 
+                transform: scale(1.1) translateY(-20px);
+                filter: blur(2px);
+            }
+        }
+        
+        /* TEXT HIGHLIGHT EFFECTS */
+        .highlight-text {
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 600;
+            animation: textGlow 2s ease-in-out;
+        }
+        
+        @keyframes textGlow {
+            0% { filter: drop-shadow(0 0 10px rgba(255, 107, 53, 0.5)); }
+            50% { filter: drop-shadow(0 0 20px rgba(255, 107, 53, 0.8)); }
+            100% { filter: drop-shadow(0 0 10px rgba(255, 107, 53, 0.5)); }
+        }
+        
+        /* SCROLL ANIMATIONS */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1.2s cubic-bezier(0.65, 0, 0.35, 1);
+            will-change: transform, opacity;
+        }
+        
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Add these new animations to your existing CSS */
+        
+        /* Scroll Animation Classes */
+        .scroll-animate {
+            animation: fadeSlideUp 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+        }
+        
+        @keyframes fadeSlideUp {
+            0% {
+                opacity: 0;
+                transform: translateY(60px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Enhanced Button Interactions */
+        .action-btn {
+            transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.3s ease;
+        }
+        
+        .action-btn:hover {
+            box-shadow: 0 20px 40px rgba(255, 107, 53, 0.5);
+        }
+        
+        /* Button Grid Animation */
+        .button-grid {
+            opacity: 0;
+            transform: scale(0.95);
+        }
+        
+        .button-grid.scroll-animate {
+            animation: buttonReveal 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+        }
+        
+        @keyframes buttonReveal {
+            0% {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        /* Enhanced Glass Card Effects */
+        .glass-card:hover::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 25px;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                rgba(255, 107, 53, 0.1),
+                transparent
+            );
+            animation: borderGlow 2s linear infinite;
+        }
+        
+        @keyframes borderGlow {
+            0% {
+                background-position: 0% 0%;
+            }
+            100% {
+                background-position: 200% 0%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-overlay" id="loadingScreen">
+        <div class="loading-basketball"></div>
+    </div>
+    
+    <!-- Floating Basketballs Background -->
+    <div class="floating-basketball"></div>
+    <div class="floating-basketball"></div>
+    <div class="floating-basketball"></div>
+    <div class="floating-basketball"></div>
+    
+    <!-- Hero Header -->
+    <header>
+        <div class="hero-content">
+            <h1 class="hero-title">VARSITY ELITE</h1>
+            <h2 class="hero-subtitle">Championship Mindset • Elite Performance</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="gamesPlayed">127</div>
+                    <div class="stat-label">Games Played</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="averagePoints">24.8</div>
+                    <div class="stat-label">PPG Average</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="teamWins">89%</div>
+                    <div class="stat-label">Win Rate</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="championships">3</div>
+                    <div class="stat-label">Championships</div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator" onclick="document.querySelector('main').scrollIntoView({behavior: 'smooth'})">
+            <div style="font-size: 2rem;">↓</div>
+            <div>Scroll to explore</div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <main>
+            <!-- Main Story Section -->
+            <section class="section animate-on-scroll">
+                <div class="glass-card">
+                    <h2 class="section-title">My Basketball Journey</h2>
+                    <p id="main-text">
+                        Basketball isn't just a sport for me—it's the foundation of who I am. As a varsity elite player, every dribble echoes with purpose, every shot carries the weight of dedication, and every defensive stance tells the story of countless hours perfecting my craft. The hardwood court has been my classroom, my sanctuary, and my stage for greatness. From dawn practices that test your limits to game-winning shots under pressure, basketball has forged my character, taught me resilience, and shown me that champions are made in the moments when nobody's watching.
+                    </p>
+                    
+                    <div class="button-grid">
+                        <button class="action-btn" id="change-text-btn">🔄 Transform Story</button>
+                        <button class="action-btn" id="add-drill-btn">➕ Add Elite Drill</button>
+                        <button class="action-btn" id="remove-item-btn">🗑️ Remove Last Drill</button>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Training Drills Section -->
+            <section class="section animate-on-scroll">
+                <div class="glass-card">
+                    <h2 class="section-title">Elite Training Arsenal</h2>
+                    <div class="drills-container">
+                        <ul id="drills-list">
+                            <li class="drill-item">Suicide Sprints - Building championship endurance and mental fortitude</li>
+                            <li class="drill-item">Clutch Free Throws - Ice-cold accuracy when the pressure peaks</li>
+                            <li class="drill-item">Defensive Lockdown Slides - Shutting down opponents with elite footwork</li>
+                            <li class="drill-item">Ball Handling Wizardry - Command and control at lightning speed</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Image Showcase -->
+            <section class="section animate-on-scroll">
+                <div class="glass-card">
+                    <h2 class="section-title">The Court of Champions</h2>
+                    <div class="image-showcase">
+                        <img src="https://images.unsplash.com/photo-1546519638-68e109498ffc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90" 
+                             alt="Professional basketball court with dramatic lighting showcasing the arena where varsity champions are made, featuring pristine hardwood floors and championship banners" 
+                             class="basketball-image">
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                Crafted with championship passion for basketball excellence
+                <span class="footer-emoji">🏀</span>
+            </div>
+            <div style="color: rgba(255, 255, 255, 0.6); font-size: 0.9rem; margin-top: 20px;">
+                Elite Performance • Varsity Excellence • Championship Mindset
+            </div>
+        </div>
+    </footer>
+    
+    <script src="script.js" defer></script>
+</body>
+</html>
