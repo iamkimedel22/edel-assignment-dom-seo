@@ -173,16 +173,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Remove any duplicate event listeners
-    const oldListeners = changeTextBtn.cloneNode(true);
-    changeTextBtn.parentNode.replaceChild(oldListeners, changeTextBtn);
-    
-    const oldAddBtn = addDrillBtn.cloneNode(true);
-    addDrillBtn.parentNode.replaceChild(oldAddBtn, addDrillBtn);
-    
-    const oldRemoveBtn = removeItemBtn.cloneNode(true);
-    removeItemBtn.parentNode.replaceChild(oldRemoveBtn, removeItemBtn);
-    
+    // NOTE: removed the cloneNode(...) replacement that was wiping out event listeners
+    // (cloning and replacing the buttons removed the listeners attached above)
+
     // ===== ENHANCED INTERACTIVITY FUNCTIONS =====
     
     // Confetti effect for completion
